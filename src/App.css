@@ -1,0 +1,38 @@
+.App-logo{
+    font-weight: 700!important;
+}
+
+.search-form{
+    width: 30%!important;
+    background: none!important;
+    border: none!important
+}
+
+.search-form h4{
+    margin: 0 auto!important;
+    text-align: center;
+    margin-bottom:0px!important ;
+}
+.page-container{
+    width: 100%;
+    margin:0 auto!important
+}
+.card-title a{
+    text-decoration: none;
+}
+.icon{
+    margin-right:5px;
+}
+.icon-md{
+    margin-right:10px;
+    color: #6a737d!important;
+}
+.avtar{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin:auto 15px;
+}
+.owner-label{
+    font-weight: 600;
+}
