@@ -25,7 +25,7 @@ const SearchResult:React.FC<IProps> = ({item}) => {
         </div>
         <div className="">
             <span className="badge bg-light text-dark author-label" key={item.owner.id}>Author</span>
-            <img className="avtar" src={item.owner.avatar_url}/>
+            <img className="avtar" src={item.owner.avatar_url} alt=""/>
             <span className="owner-label" key={item.owner.login}>{item.owner.login}</span>
         </div>
         </div>
