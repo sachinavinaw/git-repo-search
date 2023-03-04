@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface IProps{
     handleSearch(k:string):void
@@ -19,12 +19,6 @@ const SearchForm: React.FC<IProps> = ({handleSearch}) => {
         }
     }
 
-    const handleKeyDown=(e: React.KeyboardEvent<HTMLInputElement>)=>{
-        if (e.key === 'Enter' && keyword!=='') {
-            handleSearch(keyword);
-        }
-    }
-
     return(
         <div className='d-flex justify-content-center bg-light text-dark'>
            <div className="card search-form">
@@ -34,7 +28,7 @@ const SearchForm: React.FC<IProps> = ({handleSearch}) => {
             <div className="card-body">
             <div className="input-group mb-3">
                 <input type="text" className="form-control" placeholder="Search GitHub" aria-label="Seacrh GitHub" aria-describedby="search-btn" 
-                onChange={handleChange} onKeyDown={handleKeyDown}/>
+                onChange={handleChange}/>
                 <button className="btn btn-secondary" type="button" id="search-btn" onClick={handleClick}>Search</button>
             </div>
             </div>
