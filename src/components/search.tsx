@@ -1,12 +1,12 @@
 import{ useState } from 'react';
+import { throttle } from 'lodash';
+import { Config } from '../config/config';
 import { IResponse } from '../models/IResponse';
 import Paginate from './paginate';
 import SearchForm from './searchform';
 import SearhResults from './searchresults';
-
 import { GitSearchApi } from '../services/git-search-api';
-import { debounce } from 'lodash';
-import { Config } from '../config/config';
+
 const Search = () => {
     
     const defaultValue={ count: 0, incompleteResults:false, items:[]}
@@ -14,8 +14,8 @@ const Search = () => {
     const [showPage, setshowPage]=useState(false);
     const [itemOffset, setItemOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
-
-    const delayedQuery = debounce((k)=> fetch(k), 500);
+    const [isInialized, setisInialized]=useState(false)
+    const delayedQuery = throttle((k)=> fetch(k), 500);
     const handleSearch= (keyword:string)=>{ delayedQuery(keyword);}
 
     const handlePageChange=(selectedPage:number)=>{
@@ -28,13 +28,16 @@ const Search = () => {
     const fetch=async(keyword:string)=>{
         try {
             const service = new GitSearchApi();
-
+            // Get repositories based on keyword
             const result=await service.getRepositories(keyword, Config.API_ITEMS_PER_PAGE, Config.API_PAGE);
+            // set corresponding states
             setState(result);
+            setisInialized(true);
             setCurrentPage(0);
             setshowPage(true);
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            setisInialized(false);
             setshowPage(false);
         }
     }
@@ -55,7 +58,7 @@ const Search = () => {
         const currentItems = state.items.slice(itemOffset, endOffset);
         return (
             <div className="container">
-            <SearhResults count={state.count} items={currentItems}/>
+            <SearhResults count={state.count} items={currentItems} isInialized={isInialized}/>
            </div>
         )
     }

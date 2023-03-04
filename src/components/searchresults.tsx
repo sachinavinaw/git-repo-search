@@ -2,16 +2,18 @@ import { Repository } from "../models/Repository";
 import SearchResult from "./searchresult";
 
 interface IProps{
+    isInialized:boolean
     count: number;
     items:Repository[]
 }
 
-const SearhResults: React.FC<IProps> = ({count, items}) => {
+const SearhResults: React.FC<IProps> = ({count, items, isInialized}) => {
     const showResults=()=>{
-        if(items.length>0) {
+        if(isInialized){
+            const badgeClass=(items.length===0) ? 'badge bg-primary': 'badge bg-success'
             return (
-                <div className='d-flex justify-content-center mb-3'>
-                    <small >Found {count} repositories!!</small>
+                <div className='d-flex justify-content-center mt-2 mb-2'>
+                    <span className={badgeClass}> Found <strong>{count}</strong> repositories!!</span>
                 </div>
             )
         }
@@ -20,8 +22,16 @@ const SearhResults: React.FC<IProps> = ({count, items}) => {
     return (<div> 
             {showResults()}
             {items.map((item)=>{
-                return <SearchResult item={item}/>
+                return (
+                <div className="card mb-2" key={item.id}>
+                    <SearchResult item={item}/>
+                </div>
+                )
             })}
+           
+            {/* {items.map((item)=>{
+                return <SearchResult item={item}/>
+            })} */}
     </div>)
 }
  
